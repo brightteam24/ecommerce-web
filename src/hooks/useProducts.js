@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { fetchProducts, fetchProduct } from '../services/api';
+import { fetchProducts } from '../services/api';
 
 export default function useProducts(limit = null) {
     return useQuery('products', async () => {

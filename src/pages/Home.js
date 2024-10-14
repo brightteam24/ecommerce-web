@@ -1,294 +1,117 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
-import Swiper from 'react-id-swiper';
-import 'swiper/css/swiper.css';
-import { FaShoppingCart, FaTruck, FaGift } from 'react-icons/fa';
-import useProducts from '../hooks/useProducts';
-import ProductCard from '../components/ProductCard';
+import Hero from '../components/Hero';
+import ProductCards from '../components/ProductCard';
+import { useCartStore } from '../store/cartStore';
+import { toast } from 'react-toastify';
 
 const Container = styled.div`
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+`;
+
+const BackgroundImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+`;
+
+const ContentWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 20px;
+  width: 80%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
 `;
 
-const Header = styled.header`
+const CategoryCard = styled.div`
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
-`;
-
-const Logo = styled.h1`
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #f59e0b;
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  gap: 1rem;
-`;
-
-const NavLink = styled(Link)`
-  color: #4b5563;
-  &:hover {
-    color: #f59e0b;
-  }
-`;
-
-const HeroSection = styled.section`
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
-const HeroContent = styled.div`
+const CardContent = styled.div`
   flex: 1;
 `;
 
-const HeroTitle = styled.h2`
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+const Subtitle = styled.p`
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
 `;
 
-const HeroImage = styled.img`
-  max-width: 50%;
+const Title = styled.h2`
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+`;
+
+const Description = styled.p`
+  font-size: 14px;
+  color: #666;
+`;
+
+const ProductImage = styled.img`
+  max-width: 100px;
   height: auto;
 `;
 
-const ProductsSection = styled.section`
-  margin-bottom: 2rem;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-`;
-
-const ProductGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-`;
-
-const SidebarSection = styled.aside`
-  width: 250px;
-  float: left;
-  margin-right: 2rem;
-`;
-
-const CategoryList = styled.ul`
-  list-style-type: none;
-  padding: 0;
-`;
-
-const CategoryItem = styled.li`
-  margin-bottom: 0.5rem;
-`;
-
-const CategoryLink = styled(Link)`
-  color: #4b5563;
-  &:hover {
-    color: #f59e0b;
-  }
-`;
-
-const BannerSection = styled.section`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-`;
-
-const BannerItem = styled.div`
-  flex: 1;
-  background-color: #f3f4f6;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  text-align: center;
-`;
-
-const BannerImage = styled.img`
-  max-width: 100%;
-  height: auto;
-`;
-
-const Footer = styled.footer`
-  background-color: #1f2937;
-  color: white;
-  padding: 2rem 0;
-`;
-
-const FooterContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const FooterColumn = styled.div`
-  flex: 1;
-`;
-
-const FooterTitle = styled.h3`
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-`;
-
-const FooterList = styled.ul`
-  list-style-type: none;
-  padding: 0;
-`;
-
-const FooterItem = styled.li`
-  margin-bottom: 0.5rem;
-`;
-
-const FooterLink = styled(Link)`
-  color: #9ca3af;
-  &:hover {
-    color: white;
-  }
-`;
 
 export default function Home() {
-  const { data: products, isLoading, error } = useProducts();
-  const [email, setEmail] = useState('');
+  const addItems = useCartStore((state) => state.addItem);
 
-  const swiperParams = {
-    slidesPerView: 3,
-    spaceBetween: 30,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
+  const handleAddToCart = (product) => {
+    addItems(product);
+
+    // add toast notification
+    toast.success('Item added to cart');
+    console.log('Item added to cart');
+
   };
 
   return (
-    <Container>
-      <Header>
-        <Logo>Electronics Mart</Logo>
-        <Nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/products">Products</NavLink>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
-        </Nav>
-      </Header>
-
-      <HeroSection>
-        <HeroContent>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <HeroTitle>Wide Range of Mobile Phones!</HeroTitle>
-            <Link to="/products" className="btn btn-primary">Shop Now</Link>
-          </motion.div>
-        </HeroContent>
-        <HeroImage src="/path-to-hero-image.jpg" alt="Mobile phones" />
-      </HeroSection>
-
-      <SidebarSection>
-        <SectionTitle>Categories</SectionTitle>
-        <CategoryList>
-          <CategoryItem><CategoryLink to="/category/electronics">Electronics</CategoryLink></CategoryItem>
-          <CategoryItem><CategoryLink to="/category/appliances">Appliances</CategoryLink></CategoryItem>
-          {/* Add more categories */}
-        </CategoryList>
-
-        <SectionTitle>Customer Review</SectionTitle>
-        {/* Add customer review component */}
-
-        <SectionTitle>Price</SectionTitle>
-        {/* Add price filter component */}
-
-        <SectionTitle>Discount</SectionTitle>
-        {/* Add discount filter component */}
-      </SidebarSection>
-
-      <ProductsSection>
-        <SectionTitle>Our New Products</SectionTitle>
-        {isLoading ? (
-          <p>Loading products...</p>
-        ) : error ? (
-          <p>Error loading products: {error.message}</p>
-        ) : (
-          <Swiper {...swiperParams}>
-            {products.slice(0, 6).map((product) => (
-              <div key={product.id}>
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </Swiper>
-        )}
-      </ProductsSection>
-
-      <BannerSection>
-        <BannerItem>
-          <BannerImage src="/path-to-smart-watches-banner.jpg" alt="Smart Watches" />
-          <h3>Smart Watches</h3>
-          <p>Stay connected with style</p>
-        </BannerItem>
-        <BannerItem>
-          <BannerImage src="/path-to-smart-phones-banner.jpg" alt="Smart Phones" />
-          <h3>Smart Phones</h3>
-          <p>Discover the latest technology</p>
-        </BannerItem>
-      </BannerSection>
-
-      <ProductsSection>
-        <SectionTitle>Exciting Deals</SectionTitle>
-        <ProductGrid>
-          {products.slice(6, 12).map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </ProductGrid>
-      </ProductsSection>
-
-      <Footer>
-        <FooterContent>
-          <FooterColumn>
-            <FooterTitle>Categories</FooterTitle>
-            <FooterList>
-              <FooterItem><FooterLink to="/category/mobile-tablets">Mobile & Tablets</FooterLink></FooterItem>
-              <FooterItem><FooterLink to="/category/computers">Computers</FooterLink></FooterItem>
-              {/* Add more categories */}
-            </FooterList>
-          </FooterColumn>
-          <FooterColumn>
-            <FooterTitle>Quick Links</FooterTitle>
-            <FooterList>
-              <FooterItem><FooterLink to="/about">About Us</FooterLink></FooterItem>
-              <FooterItem><FooterLink to="/contact">Contact Us</FooterLink></FooterItem>
-              {/* Add more quick links */}
-            </FooterList>
-          </FooterColumn>
-          <FooterColumn>
-            <FooterTitle>Newsletter</FooterTitle>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              // Handle newsletter subscription
-              console.log('Subscribed:', email);
-              setEmail('');
-            }}>
-              <input
-                type="email"
-                placeholder="Your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit">Subscribe</button>
-            </form>
-          </FooterColumn>
-        </FooterContent>
-      </Footer>
-    </Container>
+    <>
+      <Hero />
+      <ProductCards onAddToCart={handleAddToCart} />
+      <FeaturedCategories /> 
+    </>
   );
 }
+
+const FeaturedCategories = () => {
+  return (
+    <Container>
+      <BackgroundImage src="https://p.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/bg.jpg" alt="Background" />
+      <ContentWrapper>
+        <CategoryCard>
+          <CardContent>
+            <Subtitle>New Collections, Now Trendy</Subtitle>
+            <Title>Smart Watches</Title>
+            <Description>Sale up to 25% off all in store</Description>
+          </CardContent>
+          <ProductImage src="https://p.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/off1.png" alt="Smart Watch" />
+        </CategoryCard>
+        <CategoryCard>
+          <CardContent>
+            <Subtitle>Top Brands, Lowest Prices</Subtitle>
+            <Title>Smart Phones</Title>
+            <Description>Free shipping order over $100</Description>
+          </CardContent>
+          <ProductImage src="https://p.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/off2.png" alt="Smart Phone" />
+        </CategoryCard>
+      </ContentWrapper>
+    </Container>
+  );
+};
