@@ -8,6 +8,15 @@
 # testing
 /coverage
 
+# backend
+/backend/db.sqlite3
+
+# environment variables
+.env
+
+# git
+.gitignore
+
 # production
 /build
 
