@@ -10,11 +10,11 @@ export default function ProductCards({ onAddToCart }) {
 
   const products = [
     { id: 1, name: 'Mi 4A Horizon', price: 499.00, oldPrice: 699.00, image: 'https://p.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/off1.png', isNew: true, rating: 4.5 },
-    { id: 2, name: 'Smart AC with Wi-fi', price: 699.00, oldPrice: 799.00, image: '/images/product2.jpg', isNew: true, rating: 4 },
-    { id: 3, name: 'Microwave Oven', price: 399.00, oldPrice: 499.00, image: '/images/product3.jpg', rating: 3.5 },
-    { id: 4, name: 'Air Cooler', price: 199.00, oldPrice: 249.00, image: '/images/product4.jpg', isNew: true, rating: 5 },
-    { id: 5, name: 'Washing Machine', price: 599.00, oldPrice: 699.00, image: '/images/product5.jpg', rating: 4 },
-    { id: 6, name: 'Water Purifier', price: 299.00, oldPrice: 349.00, image: '/images/product6.jpg', rating: 3.5 },
+    { id: 2, name: 'Smart AC with Wi-fi', price: 699.00, oldPrice: 799.00, image: 'https://p.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/off2.png', isNew: true, rating: 4 },
+    { id: 3, name: 'Microwave Oven', price: 399.00, oldPrice: 499.00, image: 'https://p.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/si3.png', rating: 3.5 },
+    { id: 4, name: 'Air Cooler', price: 199.00, oldPrice: 249.00, image: 'https://p.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/si1.png', isNew: true, rating: 5 },
+    { id: 5, name: 'Washing Machine', price: 599.00, oldPrice: 699.00, image: 'https://p.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/off1.png', rating: 4 },
+    { id: 6, name: 'Water Purifier', price: 299.00, oldPrice: 349.00, image: 'https://p.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/off2.png', rating: 3.5 },
   ];
 
   const renderStars = (rating) => {

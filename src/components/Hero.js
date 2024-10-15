@@ -26,7 +26,7 @@ export default function Hero() {
             buttonLink: '/products'
         },
         {
-            image: 'https://p.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/off3.png',
+            image: 'https://p.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/si1.png',
             title: 'BEST DEALS ON SMARTPHONES',
             subtitle: 'Save up to 50% off on selected smartphones',
             buttonText: 'Shop Now',

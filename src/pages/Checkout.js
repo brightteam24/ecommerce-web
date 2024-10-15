@@ -105,6 +105,7 @@ export default function Checkout() {
               onChange={(e) => setShippingInfo({ ...shippingInfo, postalCode: e.target.value })}
               required
             />
+            
             <Button type="submit">Continue to Payment</Button>
           </form>
         );
@@ -165,7 +166,7 @@ export default function Checkout() {
               </OrderItem>
             ))}
             <TotalPrice>Total: {formatCurrency(getTotalPrice())}</TotalPrice>
-            <PaystackButton className='paystack-button' text='Place Order' {...componentProps} />
+            <PayStackButton className='paystack-button' text='Place Order' {...componentProps} />
           </div>
         );
       default:
@@ -305,4 +306,10 @@ const SecurityNote = styled.div`
   margin-top: 20px;
   color: #666;
 `;
+
+const PayStackButton = styled(PaystackButton)`
+    
+`;
+
+
 
